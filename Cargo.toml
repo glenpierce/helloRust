@@ -1,0 +1,11 @@
+[package]
+name = "rocketServer"
+version = "0.0.1"
+edition = "2018"
+
+[[bin]]
+name = "rocketServer"
+path = "rocketServer.rs"
+
+[dependencies]
+rocket = "0.4.2"
