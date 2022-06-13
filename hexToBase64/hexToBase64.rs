@@ -2,24 +2,30 @@ use std::env;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    println!("{:?}", args);
+    println!("args: {:?}", args);
     if args.len() > 1 {
-        let mut i = args[1].len() - 1;
+        let mut i: usize = args[1].len() - 1;
         let char_vec: Vec<char> = args[1].chars().collect();
+        let mut byteVec: Vec<u8> = Vec::new();
         while i > 2 {
-            convertToBase64(&[char_vec[i], char_vec[i-1], char_vec[i-2]]);
+            let mut convertedValue: Vec<u8> = convertToBase64(&[char_vec[i], char_vec[i-1], char_vec[i-2]]);
+            byteVec.append(&mut convertedValue);
             i -= 3;
         }
         if i == 2 {
-            convertToBase64(&[char_vec[i], char_vec[i-1], char_vec[i-2]]);
+            let mut convertedValue: Vec<u8> = convertToBase64(&[char_vec[i], char_vec[i-1], char_vec[i-2]]);
+            byteVec.append(&mut convertedValue);
         }
         if i == 1 {
-            convertToBase64(&[char_vec[i], char_vec[i-1]]);
+            let mut convertedValue: Vec<u8> = convertToBase64(&[char_vec[i], char_vec[i-1]]);
+            byteVec.append(&mut convertedValue);
         }
         if i == 0 {
-            convertToBase64(&[char_vec[i]]);
+            let mut convertedValue: Vec<u8> = convertToBase64(&[char_vec[i]]);
+            byteVec.append(&mut convertedValue);
         }
-        println!("{:?}", args[1]);
+        println!("args[1]: {:?}", args[1]);
+        println!("byteVec: {:?}", byteVec);
     }
 }
 
@@ -34,6 +40,6 @@ fn convertToBase64(args: &[char]) -> std::vec::Vec<u8> {
             }
         }
     }
-    println!("{:?}", bytes);
+    println!("bytes: {:?}", bytes);
     return bytes;
 }
